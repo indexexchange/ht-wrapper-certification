@@ -69,6 +69,7 @@ Good Luck!
 5. <b>Submitting for Review</b>
     * Once the module has been verified, go to the [GitHub page](https://github.com/partnerAdapter) of the partner adapter.
     * Submit a pull request from the `development` branch to the `master` branch for the Index Exchange team to review. If everything is approved, your adapter will be officially certified!
+    * You may push any changes to the partnerConfig.js directly to the certification branch.
 
 
 Our standard creative tag in dfp looks as follows:
