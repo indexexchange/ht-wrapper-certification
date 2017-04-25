@@ -36,11 +36,11 @@ Good Luck!
     
     ```sh
     # clone the repo
-    git clone https://github.com/ht-wrapper-certification.git
+    git clone https://github.com/indexexchange/ht-wrapper-certification.git
 
     # checkout the certification branch
-    cd partnerCertification
-    git checkout partner-name-certification
+    cd ht-wrapper-certification
+    git checkout b-real-time-certification
     ```
 
     ```sh
@@ -67,7 +67,7 @@ Good Luck!
     * Open the index.html test page and you should see the HeaderTagWrapper loaded as well as your partnerModule.
     * In order to confirm your module's functionality, please complete the required [test plan](#testing) outlined below in this readme.
 5. <b>Submitting for Review</b>
-    * Once the module has been verified, go to the [GitHub page](https://github.com/partnerAdapter) of the partner adapter.
+    * Once the module has been verified, go to the [GitHub page](https://github.com/indexexchange/b-real-time-adapter) of the partner adapter.
     * Submit a pull request from the `development` branch to the `master` branch for the Index Exchange team to review. If everything is approved, your adapter will be officially certified!
     * You may push any changes to the partnerConfig.js directly to the certification branch.
 
