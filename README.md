@@ -44,8 +44,8 @@ Good Luck!
     ```
 
     ```sh
-    # checkout the development branch
-    cd partnerAdapter
+    # Go into the partner submodule and checkout the development branch
+    cd b-real-time-adapter
     git checkout development
     ```
 
