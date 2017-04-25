@@ -1,0 +1,4 @@
+[submodule "b-real-time-adapter"]
+	path = b-real-time-adapter
+	url = https://github.com/indexexchange/b-real-time-adapter
+	branch = master
