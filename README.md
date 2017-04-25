@@ -36,7 +36,7 @@ Good Luck!
     
     ```sh
     # clone the repo
-    git clone https://github.com/ht-wrapper-certification.git
+    git clone https://github.com/indexexchange/ht-wrapper-certification.git
 
     # checkout the certification branch
     cd partnerCertification
