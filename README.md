@@ -27,7 +27,7 @@ Good Luck!
 * `headerTagWrapper.js`               - A minified version of our Header Tag Wrapper.
 * `index.html`                        - A simple test page that contains some googletag slots and loads our wrapper for testing purposes.
 * `centro-adapter` - Folder that contains the partner module (most of the development should be done in this folder)
-    * `partnerModule.js`                  - This is your partner module file, by default it contains a template divided into multiple sections which need to be completed.
+    * `centro.js`                  - This is your partner module file, by default it contains a template divided into multiple sections which need to be completed.
     * `package.json` - This is a file containing metadata used by the Index Exchange development team.
 
 ##  <a name='gettingStarted'></a>Getting Started
@@ -59,8 +59,8 @@ Good Luck!
         * By default, you should see Index Exchange certification ads rendering on all slots except that 728x90 leaderboard slot, which should be rendering a default/house ad.
     * Once you have setup your module, you can test the auction by bidding higher or lower to see your ads winning.
 
-2. <b>Complete the `partnerModule.js` file in the centro-adapter folder.</b>
-    * partnerModule.js is where all of your adapter code will live.
+2. <b>Complete the `centro.js` file in the centro-adapter folder.</b>
+    * centro.js is where all of your adapter code will live.
     * In order to complete the partner module correctly, please refer to the [Partner Module Overview](#overview) and the [Utility Libraries](#helpers) sections.
     * <b>Please refer to the [Partner Requirements and Guidelines](#requirements) when creating your module. Ensure requirements are met to streamline the review process.</b>
     * The module is automatically loaded by the test page, so once your code has been added, you will be able to test it right away.
@@ -262,7 +262,7 @@ Once all slots have been fetched and parsed, they must be mapped back to htSlotI
 }
 ```
 Any returned creative code must be stored inside the global `creativeStore` object using some sort of unique id and size.
-The targeting keys should be the keys found in the `targetingKeys` object. This should include the `cent_cpm` for open/private market bids by price and `ix_cent_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
+The targeting keys should be the keys found in the `targetingKeys` object. This should include the `ix_cent_cpm` for open/private market bids by price and `ix_cent_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
 Once all the demand has been gathered, the partner module should invoke the provided callback with the demand as an argument.
 
 #### Section I
