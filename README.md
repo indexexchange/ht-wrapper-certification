@@ -26,7 +26,7 @@ Good Luck!
 * `partnerConfig.js`                - This is the configuration object that contains your partner specific configs.
 * `headerTagWrapper.js`               - A minified version of our Header Tag Wrapper.
 * `index.html`                        - A simple test page that contains some googletag slots and loads our wrapper for testing purposes.
-* `partnerAdapter` - Folder that contains the partner module (most of the development should be done in this folder)
+* `partner-adapter` - Folder that contains the partner module (most of the development should be done in this folder)
     * `partnerModule.js`                  - This is your partner module file, by default it contains a template divided into multiple sections which need to be completed.
     * `package.json` - This is a file containing metadata used by the Index Exchange development team.
 
@@ -39,35 +39,56 @@ Good Luck!
     git clone https://github.com/indexexchange/ht-wrapper-certification.git
 
     # checkout the certification branch
-    cd partnerCertification
-    git checkout partner-name-certification
+    cd ht-wrapper-certification
+    git checkout partner-certification
+
+    # register and update the bidder adapter
+    git submodule init
+    git submodule update --remote
     ```
 
     ```sh
-    # checkout the development branch
-    cd partnerAdapter
+    # checkout the development branch for the partner adapter submodule
+    cd partner-adapter
     git checkout development
     ```
 
-3.  <b>Host the repo locally</b>
+2.  <b>Host the repo locally</b>
     * Once the repo is hosted locally, you should be able to see a simple test page with 4 googletag slots defined (3 desktop and 1 mobile).
     * By default, the Index Exchange adapter will be bidding $1.50 on all slots except the 728x90 leaderboard slot. 
         * By default, you should see Index Exchange certification ads rendering on all slots except that 728x90 leaderboard slot, which should be rendering a default/house ad.
     * Once you have setup your module, you can test the auction by bidding higher or lower to see your ads winning.
-2. <b>Complete the partnerModule.js file in the partnerAdapter folder.</b>
+
+2. <b>Complete the `partnerModule.js` file in the partner-adapter folder.</b>
     * partnerModule.js is where all of your adapter code will live.
     * In order to complete the partner module correctly, please refer to the [Partner Module Overview](#overview) and the [Utility Libraries](#helpers) sections.
     * <b>Please refer to the [Partner Requirements and Guidelines](#requirements) when creating your module. Ensure requirements are met to streamline the review process.</b>
     * The module is automatically loaded by the test page, so once your code has been added, you will be able to test it right away.
+
 3. <b>Complete the partnerConfig.js</b>
     * This file is where your partner-specific configuration and slot mappings will be defined.
     * Please complete your module's configuration with appropriate xSlot data and mappings. For more information on xSlots, refer to the [Configuration](#configuration) section of this README.
+
+3. <b>Committing changes to GitHub</b>
+    * Please make sure that you're in the correct directory
+    ```sh
+    # commit all the changes in the ht-wrapper-certification directory
+    git commit -am "commit message"
+    git push origin partner-certification
+    ```
+    ```sh
+    # commit all the changes in the partner-adapter directory
+    git commit -am "commit message"
+    git push origin development
+    ```
+
 4. <b>Testing and Verification</b>
     * Once your partner module has been completed and your partner-specific configuration has been added to partnerConfig.js, you are ready to start testing.
     * Open the index.html test page and you should see the HeaderTagWrapper loaded as well as your partnerModule.
     * In order to confirm your module's functionality, please complete the required [test plan](#testing) outlined below in this readme.
+
 5. <b>Submitting for Review</b>
-    * Once the module has been verified, go to the [GitHub page](https://github.com/partnerAdapter) of the partner adapter.
+    * Once the module has been verified, go to the [GitHub page](https://github.com/indexexchange/partner-adapter) of the partner adapter.
     * Submit a pull request from the `development` branch to the `master` branch for the Index Exchange team to review. If everything is approved, your adapter will be officially certified!
     * You may push any changes to the partnerConfig.js directly to the certification branch.
 
@@ -80,7 +101,7 @@ for (var i = 0; i < 10; i++) {
     w = w.parent;
     if (w.headertag) {
         try {
-            w.headertag.<PARTNER_ID>.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
+            w.headertag.PRTN.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
             break;
         } catch (e) {
             continue;
@@ -204,7 +225,6 @@ The parter module needs to initialize itself. This includes validating the confi
 
 #### Section A
 This section is mainly about setting up the behavior of partner itself. Things like targeting types, partnerID (used internally to reference the partner), and different types of analytics are supported.
-Everything in this section can be left as is except the partnerID.
 
 #### Section B
 This section is for validating partner specific configuration that is provided by the user. Slot mappings and other fields that are required for all adapters are validated for you. If there are partner specific fields that need validation, this is the place to validate them.
@@ -242,7 +262,7 @@ Once all slots have been fetched and parsed, they must be mapped back to htSlotI
 }
 ```
 Any returned creative code must be stored inside the global `creativeStore` object using some sort of unique id and size.
-The targeting keys should be the keys found in the `targetingKeys`. This should include the `omKey` or `pmKey` key for the cpm or deal as well as an `idKey` used to correlate the request with the creative to be used to retrieve the creative from the `creativeStore` object in the `renderAd` function if they partner is to win the auction. The targeting is passed to the `renderAd` function on a win, which is then used to retrieve the creative.
+The targeting keys should be the keys found in the `targetingKeys` object. This should include the `ix_prtn_cpm` for open/private market bids by price and `ix_prtn_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
 Once all the demand has been gathered, the partner module should invoke the provided callback with the demand as an argument.
 
 #### Section I
@@ -350,15 +370,15 @@ Before submitting your module for review by Index Exchange, your module <b>must<
     * The bids are being stored correctly in `demand` (for regular demand).
     * The creatives are being stored correctly in the `creativeStore` object.
 3. Targeting is correctly applied and present on google tags `ads?` requests.
-    * The partner specific keys (ix_PARTNERID_cpm, ix_PARTNERID_id, etc) should be present.
+    * The partner specific key, `ix_prtn_cpm` for open/private market bids by price and `ix_prtn_dealid` for private market bids by deal id should be present.
     * The current values for those keys should be set.
 4. Partner-Specific test ads are displaying.
     * In order to see your test ads displaying, you must win the auction in DFP.
-        * We have 2 sets of test line items setup for the open market and 1 set of test line items setup for the private market for your specific targeting key.
-            * One for $1.00 bids, one for $2.00 bids, and one for dealId `deal`. This is so you can see win/loss against our default index bids of $1.50.
+        * We have 2 sets of test line items setup for the open/private market bids by price and 1 set of test line items setup for the private market bids by deal id for your specific targeting key.
+            * One for $1.00 bids, one for $2.00 bids, and one for a deal with deal id `deal`. This is so you can see win/loss against our default index bids of $1.50.
         * Hence to see your ads displaying, you must return $2.00 bids or private market deals with dealId=`deal` that gets passed into dfp through your targeting key.
-            * For open market example, ix_PARTNERID_cpm=300x250_2.00
-            * For private market example, ix_PARTNERID_dealid=300x250_deal
+            * For bid by price example, `ix_prtn_cpm=300x250_2.00`
+            * For bid by deal id example, `ix_prtn_dealid=300x250_deal`
     * Your returned creatives should be activating line items and winning with the correct bids.
 
 
