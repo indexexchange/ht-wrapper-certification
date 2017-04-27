@@ -41,6 +41,10 @@ Good Luck!
     # checkout the certification branch
     cd ht-wrapper-certification
     git checkout b-real-time-certification
+
+    # register and update the bidder adapter 
+    git submodule init
+    git submodule update --remote
     ```
 
     ```sh
