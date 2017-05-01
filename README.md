@@ -345,8 +345,8 @@ Example of `bidTransformConfig`:
 var bidTransformConfig = {          // Default rounding configuration
     'floor': 0,
     'inputCentsMultiplier': 100,    // Input is in dollars
-    'outputCentsDivisor': 1,      // Output as dollars
-    'outputPrecision': 0,           // With 2 decimal places
+    'outputCentsDivisor': 1,        // Output as dollars
+    'outputPrecision': 0,           // With 0 decimal places
     'roundingType': 1,              // Floor instead of round
     'buckets': [{
         'max': 2000,                // Up to 20 dollar (above 5 cents)
