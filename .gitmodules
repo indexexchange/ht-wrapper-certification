@@ -1,0 +1,4 @@
+[submodule "integral-ad-science-adapter"]
+	path = integral-ad-science-adapter
+	url = https://github.com/indexexchange/integral-ad-science-adapter
+	branch = master
