@@ -101,7 +101,7 @@ for (var i = 0; i < 10; i++) {
     w = w.parent;
     if (w.headertag) {
         try {
-            w.headertag.IAS.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
+            w.headertag.IntegralAdScienceHtb.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
             break;
         } catch (e) {
             continue;
