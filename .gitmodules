@@ -1,0 +1,4 @@
+[submodule "triple-lift-adapter"]
+	path = triple-lift-adapter
+	url = git@github.com:/indexexchange/triple-lift-adapter
+	branch = master
