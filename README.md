@@ -26,8 +26,8 @@ Good Luck!
 * `partnerConfig.js`                - This is the configuration object that contains your partner specific configs.
 * `headerTagWrapper.js`               - A minified version of our Header Tag Wrapper.
 * `index.html`                        - A simple test page that contains some googletag slots and loads our wrapper for testing purposes.
-* `partner-adapter` - Folder that contains the partner module (most of the development should be done in this folder)
-    * `partnerModule.js`                  - This is your partner module file, by default it contains a template divided into multiple sections which need to be completed.
+* `conversant-adapter` - Folder that contains the partner module (most of the development should be done in this folder)
+    * `conversant.js`                  - This is your partner module file, by default it contains a template divided into multiple sections which need to be completed.
     * `package.json` - This is a file containing metadata used by the Index Exchange development team.
 
 ##  <a name='gettingStarted'></a>Getting Started
@@ -40,7 +40,7 @@ Good Luck!
 
     # checkout the certification branch
     cd ht-wrapper-certification
-    git checkout partner-certification
+    git checkout conversant-certification
 
     # register and update the bidder adapter
     git submodule init
@@ -49,7 +49,7 @@ Good Luck!
 
     ```sh
     # checkout the development branch for the partner adapter submodule
-    cd partner-adapter
+    cd conversant-adapter
     git checkout development
     ```
 
@@ -59,8 +59,8 @@ Good Luck!
         * By default, you should see Index Exchange certification ads rendering on all slots except that 728x90 leaderboard slot, which should be rendering a default/house ad.
     * Once you have setup your module, you can test the auction by bidding higher or lower to see your ads winning.
 
-2. <b>Complete the `partnerModule.js` file in the partner-adapter folder.</b>
-    * partnerModule.js is where all of your adapter code will live.
+2. <b>Complete the `conversant.js` file in the conversant-adapter folder.</b>
+    * conversant.js is where all of your adapter code will live.
     * In order to complete the partner module correctly, please refer to the [Partner Module Overview](#overview) and the [Utility Libraries](#helpers) sections.
     * <b>Please refer to the [Partner Requirements and Guidelines](#requirements) when creating your module. Ensure requirements are met to streamline the review process.</b>
     * The module is automatically loaded by the test page, so once your code has been added, you will be able to test it right away.
@@ -74,10 +74,10 @@ Good Luck!
     ```sh
     # commit all the changes in the ht-wrapper-certification directory
     git commit -am "commit message"
-    git push origin partner-certification
+    git push origin conversant-certification
     ```
     ```sh
-    # commit all the changes in the partner-adapter directory
+    # commit all the changes in the conversant-adapter directory
     git commit -am "commit message"
     git push origin development
     ```
@@ -88,7 +88,7 @@ Good Luck!
     * In order to confirm your module's functionality, please complete the required [test plan](#testing) outlined below in this readme.
 
 5. <b>Submitting for Review</b>
-    * Once the module has been verified, go to the [GitHub page](https://github.com/indexexchange/partner-adapter) of the partner adapter.
+    * Once the module has been verified, go to the [GitHub page](https://github.com/indexexchange/conversant-adapter) of the partner adapter.
     * Submit a pull request from the `development` branch to the `master` branch for the Index Exchange team to review. If everything is approved, your adapter will be officially certified!
     * You may push any changes to the partnerConfig.js directly to the certification branch.
 
@@ -101,7 +101,7 @@ for (var i = 0; i < 10; i++) {
     w = w.parent;
     if (w.headertag) {
         try {
-            w.headertag.PRTN.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
+            w.headertag.ConversantHtb.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
             break;
         } catch (e) {
             continue;
@@ -180,7 +180,7 @@ Example Partner Configuration Mapping
 ```javascript
 {
     "partners": {
-        "PRTN": {
+        "CONV": {
             "xSlots": {
                 "xSlot1": {
                     "placementID": "123",
@@ -235,15 +235,10 @@ Similar to section B but for any partner specific xSlot mapping information (i.e
 #### Section E
 This section is for simply copying any useful information (such as slot mappings) from the main configuration object to internal variables. Creating a direct map from htSlotID to an xSlot and vice versa would be useful to have and can be done here.
 
-#### Section F
-In this section, the partner module needs to request demand for the htSlots that are provided in the info variable. The info variable contains the htSlotIds for which demand needs to be gathered. These `htSlotIDs` need to be first mapped back to partner specific xSlots.
-The partner module should then make a demand request to their server. Once the request is complete, the returned demand should be processed, and stored under the htSlotID that it was initially requested for in the `demandStore[correlator]` object for later consumption.
-Any returned creative code must be stored inside the global `creativeStore` object.
-
-### Step 3: Get Demand (Sections H and I)
+### Step 3: Get Demand (Sections F and G)
 This step is for retrieving demand when a googletag display or a refresh call is made.
 
-#### Section H
+#### Section F
 In this section the partner must fetch demand for the requested htSlots that was provided in the slots object. These slots must be mapped back to xSlots and the appropriate xSlots must be fetched.
 Once all slots have been fetched and parsed, they must be mapped back to htSlotIDs and be placed in a demand object. In this format:
 ```javascript
@@ -262,15 +257,15 @@ Once all slots have been fetched and parsed, they must be mapped back to htSlotI
 }
 ```
 Any returned creative code must be stored inside the global `creativeStore` object using some sort of unique id and size.
-The targeting keys should be the keys found in the `targetingKeys` object. This should include the `ix_prtn_cpm` for open/private market bids by price and `ix_prtn_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
+The targeting keys should be the keys found in the `targetingKeys` object. This should include the `ix_conv_cpm` for open/private market bids by price and `ix_conv_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
 Once all the demand has been gathered, the partner module should invoke the provided callback with the demand as an argument.
 
-#### Section I
+#### Section G
 This section is an optional response callback that can be used for parsing any demand that is returned.
 
-### Step 4: Rendering (Section J)
+### Step 4: Rendering (Section H)
 This step is for rendering the winning creative. If the partner module's line item wins, the creative code will be returned and inserted into the iframe for that googletag slot. The standard creative code will contain a call to the partner module's specific `renderAd` function.
-The function in Section J should work as is as long as the creative is stored correctly in the `getDemand` function.
+The function in Section H should work as is as long as the creative is stored correctly in the `getDemand` function.
 
 # <a name='helpers'></a> Utility Libraries
 There are <i>three</i> helper objects available to you in you partner module.
@@ -342,7 +337,7 @@ Make an ajax network request using the `args` object, which should be of the for
 Example of `bidTransformConfig`:
 
 ```javascript
-var __bidTransformConfig = {        // Default rounding configuration
+var __bidTransformConfig = {          // Default rounding configuration
     'floor': 0,
     'inputCentsMultiplier': 100,    // Input is in dollars
     'outputCentsDivisor': 1,        // Output as Cents
@@ -370,15 +365,15 @@ Before submitting your module for review by Index Exchange, your module <b>must<
     * The bids are being stored correctly in `demand` (for regular demand).
     * The creatives are being stored correctly in the `creativeStore` object.
 3. Targeting is correctly applied and present on google tags `ads?` requests.
-    * The partner specific key, `ix_prtn_cpm` for open/private market bids by price and `ix_prtn_dealid` for private market bids by deal id should be present.
+    * The partner specific key, `ix_conv_cpm` for open/private market bids by price and `ix_conv_dealid` for private market bids by deal id should be present.
     * The current values for those keys should be set.
 4. Partner-Specific test ads are displaying.
     * In order to see your test ads displaying, you must win the auction in DFP.
         * We have 2 sets of test line items setup for the open/private market bids by price and 1 set of test line items setup for the private market bids by deal id for your specific targeting key.
             * One for $1.00 bids, one for $2.00 bids, and one for a deal with deal id `deal`. This is so you can see win/loss against our default index bids of $1.50.
         * Hence to see your ads displaying, you must return $2.00 bids or private market deals with dealId=`deal` that gets passed into dfp through your targeting key.
-            * For bid by price example, `ix_prtn_cpm=300x250_200`
-            * For bid by deal id example, `ix_prtn_dealid=300x250_deal`
+            * For bid by price example, `ix_conv_cpm=300x250_200`
+            * For bid by deal id example, `ix_conv_dealid=300x250_deal`
     * Your returned creatives should be activating line items and winning with the correct bids.
 
 
