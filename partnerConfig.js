@@ -1,4 +1,4 @@
-window.headertagconfig.partners["%%PARTNERID%%"] = {
+window.headertagconfig.partners["TPL"] = {
     "targetingType": "slot",
     "disabled": false,
     "xSlots": {
