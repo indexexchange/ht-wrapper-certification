@@ -1,4 +1,4 @@
-window.headertagconfig.partners["%%PARTNERID%%"] = {
+window.headertagconfig.partners["RONE"] = {
     "targetingType": "slot",
     "disabled": false,
     "xSlots": {

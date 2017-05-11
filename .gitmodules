@@ -1,0 +1,3 @@
+[submodule "rhythm-one-adapter"]
+	path = rhythm-one-adapter
+	url = https://github.com/indexexchange/rhythm-one-adapter
