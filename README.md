@@ -101,7 +101,7 @@ for (var i = 0; i < 10; i++) {
     w = w.parent;
     if (w.headertag) {
         try {
-            w.headertag.CENT.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
+            w.headertag.CentroHtb.render(document, %%PATTERN:TARGETINGMAP%%, '%%WIDTH%%', '%%HEIGHT%%');
             break;
         } catch (e) {
             continue;
@@ -235,15 +235,10 @@ Similar to section B but for any partner specific xSlot mapping information (i.e
 #### Section E
 This section is for simply copying any useful information (such as slot mappings) from the main configuration object to internal variables. Creating a direct map from htSlotID to an xSlot and vice versa would be useful to have and can be done here.
 
-#### Section F
-In this section, the partner module needs to request demand for the htSlots that are provided in the info variable. The info variable contains the htSlotIds for which demand needs to be gathered. These `htSlotIDs` need to be first mapped back to partner specific xSlots.
-The partner module should then make a demand request to their server. Once the request is complete, the returned demand should be processed, and stored under the htSlotID that it was initially requested for in the `demandStore[correlator]` object for later consumption.
-Any returned creative code must be stored inside the global `creativeStore` object.
-
-### Step 3: Get Demand (Sections H and I)
+### Step 3: Get Demand (Sections F and G)
 This step is for retrieving demand when a googletag display or a refresh call is made.
 
-#### Section H
+#### Section F
 In this section the partner must fetch demand for the requested htSlots that was provided in the slots object. These slots must be mapped back to xSlots and the appropriate xSlots must be fetched.
 Once all slots have been fetched and parsed, they must be mapped back to htSlotIDs and be placed in a demand object. In this format:
 ```javascript
@@ -265,12 +260,12 @@ Any returned creative code must be stored inside the global `creativeStore` obje
 The targeting keys should be the keys found in the `targetingKeys` object. This should include the `ix_cent_cpm` for open/private market bids by price and `ix_cent_dealid` for private market bids by deal id. The targeting key correlates the request with the creative retrieve from the `creativeStore` object in the `renderAd` function if the partner is to win the auction. Which is then passed to the `renderAd` function on a win, and used to retrieve the creative.
 Once all the demand has been gathered, the partner module should invoke the provided callback with the demand as an argument.
 
-#### Section I
+#### Section G
 This section is an optional response callback that can be used for parsing any demand that is returned.
 
-### Step 4: Rendering (Section J)
+### Step 4: Rendering (Section H)
 This step is for rendering the winning creative. If the partner module's line item wins, the creative code will be returned and inserted into the iframe for that googletag slot. The standard creative code will contain a call to the partner module's specific `renderAd` function.
-The function in Section J should work as is as long as the creative is stored correctly in the `getDemand` function.
+The function in Section H should work as is as long as the creative is stored correctly in the `getDemand` function.
 
 # <a name='helpers'></a> Utility Libraries
 There are <i>three</i> helper objects available to you in you partner module.
@@ -342,7 +337,7 @@ Make an ajax network request using the `args` object, which should be of the for
 Example of `bidTransformConfig`:
 
 ```javascript
-var bidTransformConfig = {          // Default rounding configuration
+var __bidTransformConfig = {          // Default rounding configuration
     'floor': 0,
     'inputCentsMultiplier': 100,    // Input is in dollars
     'outputCentsDivisor': 1,        // Output as dollars
