@@ -3,16 +3,20 @@ window.headertagconfig.partners["BRT"] = {
     "disabled": false,
     "xSlots": {
         "xSlot1": {
-            "placement": 1
+            "placementId": 10256447
+            , "sizes": [[728,90]]
         },
         "xSlot2": {
-            "placement": 2
+          "placementId": 10256447
+          , "sizes": [[300,250]]
         },
         "xSlot3": {
-            "placement": 3
+          "placementId": 10256447
+          , "sizes": [[300,600]]
         },
         "xSlot4": {
-            "placement": 4
+          "placementId": 10256447
+          , "sizes": [[320,50]]
         }
     },
     "mapping": {
