@@ -1,0 +1,3 @@
+[submodule "test-partner-adapter"]
+	path = test-partner-adapter
+	url = git@github.com:indexexchange/test-partner-adapter.git
