@@ -1,18 +1,18 @@
-window.headertagconfig.partners["%%PARTNERID%%"] = {
+window.headertagconfig.partners["TRSTX"] = {
     "targetingType": "slot",
     "disabled": false,
     "xSlots": {
         "xSlot1": {
-            "placement": 1
+            "placement": 42
         },
         "xSlot2": {
-            "placement": 2
+            "placement": 44
         },
         "xSlot3": {
-            "placement": 3
+            "placement": 43
         },
         "xSlot4": {
-            "placement": 4
+            "placement": 45
         }
     },
     "mapping": {

@@ -1,0 +1,4 @@
+[submodule "trust-x-adapter"]
+	path = trust-x-adapter
+	url = git@github.com:/indexexchange/trust-x-adapter
+	branch = master
