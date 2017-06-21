@@ -1,0 +1,4 @@
+[submodule "centro-adapter"]
+	path = centro-adapter
+	url = git@github.com:indexexchange/centro-adapter.git
+	branch = master

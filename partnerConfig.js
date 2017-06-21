@@ -1,18 +1,24 @@
-window.headertagconfig.partners["%%PARTNERID%%"] = {
+window.headertagconfig.partners["CENT"] = {
     "targetingType": "slot",
     "disabled": false,
     "xSlots": {
         "xSlot1": {
-            "placement": 1
+            "placement": 28136,
+            "size": [728, 90],
+            "timeout": 1000
         },
         "xSlot2": {
-            "placement": 2
+            "placement": 28136,
+            "size": [300, 250],
+            "page_url": "http://my_custom_page_url.ru"
         },
         "xSlot3": {
-            "placement": 3
+            "placement": 28136,
+            "size": [300, 600]
         },
         "xSlot4": {
-            "placement": 4
+            "placement": 28136,
+            "size": [320, 50]
         }
     },
     "mapping": {
