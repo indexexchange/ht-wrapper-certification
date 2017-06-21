@@ -337,10 +337,10 @@ Make an ajax network request using the `args` object, which should be of the for
 Example of `bidTransformConfig`:
 
 ```javascript
-var __bidTransformConfig = {          // Default rounding configuration
+var __bidTransformConfig = {        // Default rounding configuration
     'floor': 0,
     'inputCentsMultiplier': 100,    // Input is in dollars
-    'outputCentsDivisor': 1,        // Output as dollars
+    'outputCentsDivisor': 1,        // Output as Cents
     'outputPrecision': 0,           // With 0 decimal places
     'roundingType': 1,              // Floor instead of round
     'buckets': [{
@@ -372,8 +372,8 @@ Before submitting your module for review by Index Exchange, your module <b>must<
         * We have 2 sets of test line items setup for the open/private market bids by price and 1 set of test line items setup for the private market bids by deal id for your specific targeting key.
             * One for $1.00 bids, one for $2.00 bids, and one for a deal with deal id `deal`. This is so you can see win/loss against our default index bids of $1.50.
         * Hence to see your ads displaying, you must return $2.00 bids or private market deals with dealId=`deal` that gets passed into dfp through your targeting key.
-            * For bid by price example, `ix_cent_cpm=300x250_200`
-            * For bid by deal id example, `ix_cent_dealid=300x250_deal`
+            * For bid by price example, `ix_prtn_cpm=300x250_200`
+            * For bid by deal id example, `ix_prtn_dealid=300x250_deal`
     * Your returned creatives should be activating line items and winning with the correct bids.
 
 
